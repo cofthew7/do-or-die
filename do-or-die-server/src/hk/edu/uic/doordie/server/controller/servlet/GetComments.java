@@ -9,13 +9,13 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class Comments
  */
-public class Comments extends HttpServlet {
+public class GetComments extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Comments() {
+    public GetComments() {
         super();
         // TODO Auto-generated constructor stub
     }

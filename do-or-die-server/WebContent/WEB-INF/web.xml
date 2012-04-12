@@ -69,4 +69,34 @@
     <servlet-name>Users</servlet-name>
     <url-pattern>/Users</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>AddComments</display-name>
+    <servlet-name>AddComments</servlet-name>
+    <servlet-class>hk.edu.uic.doordie.server.controller.servlet.AddComments</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AddComments</servlet-name>
+    <url-pattern>/AddComments</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>AddTodo</display-name>
+    <servlet-name>AddTodo</servlet-name>
+    <servlet-class>hk.edu.uic.doordie.server.controller.servlet.AddTodo</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AddTodo</servlet-name>
+    <url-pattern>/AddTodo</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>Register</display-name>
+    <servlet-name>Register</servlet-name>
+    <servlet-class>hk.edu.uic.doordie.server.controller.servlet.Register</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Register</servlet-name>
+    <url-pattern>/Register</url-pattern>
+  </servlet-mapping>
 </web-app>
