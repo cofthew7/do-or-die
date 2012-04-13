@@ -21,53 +21,53 @@
   </servlet-mapping>
   <servlet>
     <description></description>
-    <display-name>My_Todos</display-name>
-    <servlet-name>My_Todos</servlet-name>
-    <servlet-class>hk.edu.uic.doordie.server.controller.servlet.My_Todos</servlet-class>
+    <display-name>GetMyTodos</display-name>
+    <servlet-name>GetMyTodos</servlet-name>
+    <servlet-class>hk.edu.uic.doordie.server.controller.servlet.GetMyTodos</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>My_Todos</servlet-name>
-    <url-pattern>/My_Todos</url-pattern>
+    <servlet-name>GetMyTodos</servlet-name>
+    <url-pattern>/GetMyTodos</url-pattern>
   </servlet-mapping>
   <servlet>
     <description></description>
-    <display-name>My_Friends_Todos</display-name>
-    <servlet-name>My_Friends_Todos</servlet-name>
-    <servlet-class>hk.edu.uic.doordie.server.controller.servlet.My_Friends_Todos</servlet-class>
+    <display-name>GetMyFriendsTodos</display-name>
+    <servlet-name>GetMyFriendsTodos</servlet-name>
+    <servlet-class>hk.edu.uic.doordie.server.controller.servlet.GetMyFriendsTodos</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>My_Friends_Todos</servlet-name>
-    <url-pattern>/My_Friends_Todos</url-pattern>
+    <servlet-name>GetMyFriendsTodos</servlet-name>
+    <url-pattern>/GetMyFriendsTodos</url-pattern>
   </servlet-mapping>
   <servlet>
     <description></description>
-    <display-name>My_Friends</display-name>
-    <servlet-name>My_Friends</servlet-name>
-    <servlet-class>hk.edu.uic.doordie.server.controller.servlet.My_Friends</servlet-class>
+    <display-name>GetMyFriends</display-name>
+    <servlet-name>GetMyFriends</servlet-name>
+    <servlet-class>hk.edu.uic.doordie.server.controller.servlet.GetMyFriends</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>My_Friends</servlet-name>
-    <url-pattern>/My_Friends</url-pattern>
+    <servlet-name>GetMyFriends</servlet-name>
+    <url-pattern>/GetMyFriends</url-pattern>
   </servlet-mapping>
   <servlet>
     <description></description>
-    <display-name>Comments</display-name>
-    <servlet-name>Comments</servlet-name>
-    <servlet-class>hk.edu.uic.doordie.server.controller.servlet.Comments</servlet-class>
+    <display-name>GetComments</display-name>
+    <servlet-name>GetComments</servlet-name>
+    <servlet-class>hk.edu.uic.doordie.server.controller.servlet.GetComments</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>Comments</servlet-name>
-    <url-pattern>/Comments</url-pattern>
+    <servlet-name>GetComments</servlet-name>
+    <url-pattern>/GetComments</url-pattern>
   </servlet-mapping>
   <servlet>
     <description></description>
-    <display-name>Users</display-name>
-    <servlet-name>Users</servlet-name>
-    <servlet-class>hk.edu.uic.doordie.server.controller.servlet.Users</servlet-class>
+    <display-name>GetUnknownUsers</display-name>
+    <servlet-name>GetUnknownUsers</servlet-name>
+    <servlet-class>hk.edu.uic.doordie.server.controller.servlet.GetUnknownUsers</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>Users</servlet-name>
-    <url-pattern>/Users</url-pattern>
+    <servlet-name>GetUnknownUsers</servlet-name>
+    <url-pattern>/GetUnknownUsers</url-pattern>
   </servlet-mapping>
   <servlet>
     <description></description>
@@ -98,5 +98,25 @@
   <servlet-mapping>
     <servlet-name>Register</servlet-name>
     <url-pattern>/Register</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>AddRelation</display-name>
+    <servlet-name>AddRelation</servlet-name>
+    <servlet-class>hk.edu.uic.doordie.server.controller.servlet.AddRelation</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AddRelation</servlet-name>
+    <url-pattern>/AddRelation</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>AddMonitor</display-name>
+    <servlet-name>AddMonitor</servlet-name>
+    <servlet-class>hk.edu.uic.doordie.server.controller.servlet.AddMonitor</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AddMonitor</servlet-name>
+    <url-pattern>/AddMonitor</url-pattern>
   </servlet-mapping>
 </web-app>

@@ -1,33 +1,26 @@
 package hk.edu.uic.doordie.server.controller.servlet;
 
-import hk.edu.uic.doordie.server.controller.util.JSONPackager;
-import hk.edu.uic.doordie.server.model.dao.CommentDAO;
-import hk.edu.uic.doordie.server.model.dao.UserDAO;
-import hk.edu.uic.doordie.server.model.vo.Comment;
-import hk.edu.uic.doordie.server.model.vo.User;
+import hk.edu.uic.doordie.server.model.dao.MonitoringDAO;
+import hk.edu.uic.doordie.server.model.dao.RelationDAO;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
-
 /**
- * Servlet implementation class Comments
+ * Servlet implementation class AddMonitor
  */
-public class GetComments extends HttpServlet {
+public class AddMonitor extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public GetComments() {
+    public AddMonitor() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -42,21 +35,19 @@ public class GetComments extends HttpServlet {
 
 		// 获取请求参数
 		int todoId = Integer.parseInt(request.getParameter("todoId"));
-		
+		int uid = Integer.parseInt(request.getParameter("uid"));
+
 		// for output json
 		PrintWriter out = response.getWriter();
 		
-		CommentDAO cd = new CommentDAO();
+		MonitoringDAO md = new MonitoringDAO();
 		try {
-			List<Comment> commentList = cd.getComments(todoId);
-			if(commentList != null) {
-				JSONPackager jp = new JSONPackager();
-				JSONArray comments = jp.packageComments(commentList);
-				
-				out.write(comments.toString());
+			boolean isSuccess = md.addMonitor(todoId, uid);
+			if(isSuccess) {
+				out.write("true");
 				out.flush();
 			} else {
-				out.write("null");
+				out.println("false");
 				out.flush();
 			}
 		} catch (Exception e) {

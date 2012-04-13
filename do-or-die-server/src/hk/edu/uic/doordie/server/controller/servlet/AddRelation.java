@@ -1,33 +1,28 @@
 package hk.edu.uic.doordie.server.controller.servlet;
 
-import hk.edu.uic.doordie.server.controller.util.JSONPackager;
-import hk.edu.uic.doordie.server.model.dao.CommentDAO;
-import hk.edu.uic.doordie.server.model.dao.UserDAO;
-import hk.edu.uic.doordie.server.model.vo.Comment;
-import hk.edu.uic.doordie.server.model.vo.User;
+
+import hk.edu.uic.doordie.server.model.dao.RelationDAO;
+
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
 
 /**
- * Servlet implementation class Comments
+ * Servlet implementation class AddRelation
  */
-public class GetComments extends HttpServlet {
+public class AddRelation extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public GetComments() {
+    public AddRelation() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -41,22 +36,20 @@ public class GetComments extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 
 		// 获取请求参数
-		int todoId = Integer.parseInt(request.getParameter("todoId"));
-		
+		int myId = Integer.parseInt(request.getParameter("myId"));
+		int friendId = Integer.parseInt(request.getParameter("friendId"));
+
 		// for output json
 		PrintWriter out = response.getWriter();
 		
-		CommentDAO cd = new CommentDAO();
+		RelationDAO rd = new RelationDAO();
 		try {
-			List<Comment> commentList = cd.getComments(todoId);
-			if(commentList != null) {
-				JSONPackager jp = new JSONPackager();
-				JSONArray comments = jp.packageComments(commentList);
-				
-				out.write(comments.toString());
+			boolean isSuccess = rd.addRelation(myId, friendId);
+			if(isSuccess) {
+				out.write("true");
 				out.flush();
 			} else {
-				out.write("null");
+				out.println("false");
 				out.flush();
 			}
 		} catch (Exception e) {

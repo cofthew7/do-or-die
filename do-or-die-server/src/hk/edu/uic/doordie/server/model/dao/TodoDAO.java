@@ -111,7 +111,7 @@ public class TodoDAO {
 				todo.setUid(rs.getInt("uid"));
 				todo.setIsMonitored(rs.getInt("isMonitored"));
 				todo.setIsFinished(rs.getInt("isFinished"));
-				todo.setCreatedDate(rs.getTimestamp("creatDate"));
+				todo.setCreatedDate(rs.getTimestamp("createDate"));
 
 				todoList.add(todo);
 			}
@@ -160,7 +160,7 @@ public class TodoDAO {
 				todo.setUid(rs.getInt("uid"));
 				todo.setIsMonitored(rs.getInt("isMonitored"));
 				todo.setIsFinished(rs.getInt("isFinished"));
-				todo.setCreatedDate(rs.getTimestamp("creatDate"));
+				todo.setCreatedDate(rs.getTimestamp("createDate"));
 
 				todoList.add(todo);
 			}

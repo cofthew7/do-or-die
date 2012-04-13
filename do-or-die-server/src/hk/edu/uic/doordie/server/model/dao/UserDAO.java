@@ -134,7 +134,7 @@ public class UserDAO {
 		return isExisted;
 	}
 
-	public List<User> getFriends(String myId) throws Exception {
+	public List<User> getFriends(int myId) throws Exception {
 		// 连接数据库
 		DatabaseConnection dbc = new DatabaseConnection();
 		Connection conn = dbc.getConnection();
@@ -146,7 +146,7 @@ public class UserDAO {
 		try {
 			// 执行搜索
 			pStatement = conn.prepareStatement(query);
-			pStatement.setString(1, myId);
+			pStatement.setInt(1, myId);
 			ResultSet rs = pStatement.executeQuery();
 
 			while (rs.next()) {
@@ -175,7 +175,7 @@ public class UserDAO {
 		return null;
 	}
 
-	public List<User> getUnknownUsers(String myId) throws Exception {
+	public List<User> getUnknownUsers(int myId) throws Exception {
 		// 连接数据库
 		DatabaseConnection dbc = new DatabaseConnection();
 		Connection conn = dbc.getConnection();
@@ -187,8 +187,8 @@ public class UserDAO {
 		try {
 			// 执行搜索
 			pStatement = conn.prepareStatement(query);
-			pStatement.setString(1, myId);
-			pStatement.setString(2, myId);
+			pStatement.setInt(1, myId);
+			pStatement.setInt(2, myId);
 			ResultSet rs = pStatement.executeQuery();
 
 			while (rs.next()) {
