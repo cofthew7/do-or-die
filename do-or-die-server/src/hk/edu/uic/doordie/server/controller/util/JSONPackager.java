@@ -49,17 +49,57 @@ public class JSONPackager {
 		return myTodos;
 	}
 
-	public JSONArray packageComments(List<Comment> commentList) {
+	public JSONArray packageMyFriendsTodos(List<Todo> todoList, List<User> userList) {
+		JSONArray myFriendsTodos = new JSONArray();
+		
+		for(int i = 0; i < todoList.size(); i++) {
+			Todo todo = todoList.get(i);
+			User user = userList.get(i);
+			
+			JSONObject obj = new JSONObject();
+			JSONObject obj2 = new JSONObject();
+			
+			obj.put("id", todo.getId());
+			obj.put("uid", todo.getUid());
+			obj.put("name", todo.getName());
+			obj.put("deadline", todo.getDeadline());
+			obj.put("isMonitored", todo.getIsMonitored());
+			obj.put("isFinished", todo.getIsFinished());
+			obj.put("createdDate", todo.getCreatedDate());
+			
+			obj2.put("id", user.getId());
+			obj2.put("email", user.getEmail());
+			obj2.put("avatar", user.getAvatar());
+			
+			obj.put("user", obj2);
+			
+			myFriendsTodos.add(obj);
+		}
+		
+		return myFriendsTodos;
+	}
+	
+	public JSONArray packageComments(List<Comment> commentList, List<User> userList) {
 		JSONArray comments = new JSONArray();
 		
-		for(Comment comment:commentList) {
+		for(int i = 0; i < commentList.size(); i++) {
+			Comment comment = commentList.get(i);
+			User user = userList.get(i);
+			
 			JSONObject obj = new JSONObject();
+			JSONObject obj2 = new JSONObject();
 			
 			obj.put("id", comment.getId());
 			obj.put("todoId", comment.getTodoid());
 			obj.put("uid", comment.getUid());
 			obj.put("content", comment.getContent());
 			obj.put("createdDate", comment.getCreatedDate());
+			
+			obj2.put("id", user.getId());
+			obj2.put("email", user.getEmail());
+			obj2.put("avatar", user.getAvatar());
+			
+			obj.put("user", obj2);
 			
 			comments.add(obj);
 		}

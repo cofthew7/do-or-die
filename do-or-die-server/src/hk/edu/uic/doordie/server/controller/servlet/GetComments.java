@@ -8,6 +8,7 @@ import hk.edu.uic.doordie.server.model.vo.User;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -47,11 +48,18 @@ public class GetComments extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		
 		CommentDAO cd = new CommentDAO();
+		UserDAO ud = new UserDAO();
 		try {
 			List<Comment> commentList = cd.getComments(todoId);
+			List<User> userList = new LinkedList<User>();
 			if(commentList != null) {
+				for(Comment comment:commentList) {
+					User user = ud.getUser(comment.getUid());
+					userList.add(user);
+				}
+				
 				JSONPackager jp = new JSONPackager();
-				JSONArray comments = jp.packageComments(commentList);
+				JSONArray comments = jp.packageComments(commentList, userList);
 				
 				out.write(comments.toString());
 				out.flush();

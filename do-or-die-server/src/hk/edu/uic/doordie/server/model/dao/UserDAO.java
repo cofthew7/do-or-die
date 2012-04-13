@@ -216,4 +216,43 @@ public class UserDAO {
 
 		return null;
 	}
+
+	public User getUser(int id) throws Exception {
+		// 连接数据库
+		DatabaseConnection dbc = new DatabaseConnection();
+		Connection conn = dbc.getConnection();
+		PreparedStatement pStatement = null;
+		// 声明变量用于存取结果
+		User user = new User();
+		// 搜索语句
+		String query = "SELECT *  FROM `User` WHERE `id` = ?";
+		try {
+			// 执行搜索
+			pStatement = conn.prepareStatement(query);
+			pStatement.setInt(1, id);
+			ResultSet rs = pStatement.executeQuery();
+
+			while (rs.next()) {
+				user.setId(rs.getInt("id"));
+				user.setEmail(rs.getString("email"));
+				user.setPassword(rs.getString("password"));
+				user.setAvatar(rs.getString("avatar"));
+			}
+			// 判断是否为空
+			if (user.getId() != 0) {
+				System.out.println("getUser Successful!");
+			} else {
+				System.out.println("getuser No record satisfied!");
+				user = null;
+			}
+			// 关闭连接，返回结果
+			// rs.close();
+			dbc.close();
+			return user;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return null;
+	}
 }

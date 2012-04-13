@@ -8,6 +8,7 @@ import hk.edu.uic.doordie.server.model.vo.User;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -46,11 +47,18 @@ public class GetMyFriendsTodos extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		
 		TodoDAO td = new TodoDAO();
+		UserDAO ud = new UserDAO();
 		try {
 			List<Todo> todoList = td.getMyMonitoringTodos(myId);
+			List<User> userList = new LinkedList<User>();
 			if(todoList != null) {
+				for(Todo todo:todoList) {
+					User user = ud.getUser(todo.getUid());
+					userList.add(user);
+				}
+				
 				JSONPackager jp = new JSONPackager();
-				JSONArray todos = jp.packageMyTodos(todoList);
+				JSONArray todos = jp.packageMyFriendsTodos(todoList, userList);
 				
 				out.write(todos.toString());
 				out.flush();
