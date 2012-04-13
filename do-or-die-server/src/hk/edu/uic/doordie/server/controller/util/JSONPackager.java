@@ -38,10 +38,10 @@ public class JSONPackager {
 			obj.put("id", todo.getId());
 			obj.put("uid", todo.getUid());
 			obj.put("name", todo.getName());
-			obj.put("deadline", todo.getDeadline());
+			obj.put("deadline", todo.getDeadline().toString());
 			obj.put("isMonitored", todo.getIsMonitored());
 			obj.put("isFinished", todo.getIsFinished());
-			obj.put("createdDate", todo.getCreatedDate());
+			obj.put("createdDate", todo.getCreatedDate().toString());
 			
 			myTodos.add(obj);
 		}
@@ -62,10 +62,10 @@ public class JSONPackager {
 			obj.put("id", todo.getId());
 			obj.put("uid", todo.getUid());
 			obj.put("name", todo.getName());
-			obj.put("deadline", todo.getDeadline());
+			obj.put("deadline", todo.getDeadline().toString());
 			obj.put("isMonitored", todo.getIsMonitored());
 			obj.put("isFinished", todo.getIsFinished());
-			obj.put("createdDate", todo.getCreatedDate());
+			obj.put("createdDate", todo.getCreatedDate().toString());
 			
 			obj2.put("id", user.getId());
 			obj2.put("email", user.getEmail());
@@ -93,7 +93,7 @@ public class JSONPackager {
 			obj.put("todoId", comment.getTodoid());
 			obj.put("uid", comment.getUid());
 			obj.put("content", comment.getContent());
-			obj.put("createdDate", comment.getCreatedDate());
+			obj.put("createdDate", comment.getCreatedDate().toString());
 			
 			obj2.put("id", user.getId());
 			obj2.put("email", user.getEmail());
