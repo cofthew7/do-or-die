@@ -97,7 +97,7 @@ public class TodoDAO {
 
 		List<Todo> todoList = new LinkedList<Todo>();
 		// 搜索语句
-		String query = "SELECT * FROM  `Todo` WHERE  `uid` =?";
+		String query = "SELECT * FROM  `Todo` WHERE  `uid` =? ORDER BY  `deadline` ASC";
 
 		try {
 			// 执行搜索
@@ -146,7 +146,7 @@ public class TodoDAO {
 
 		List<Todo> todoList = new LinkedList<Todo>();
 		// 搜索语句
-		String query = "SELECT * FROM  `Todo` WHERE id IN (SELECT todoId FROM Monitoring WHERE uid =?)";
+		String query = "SELECT * FROM  `Todo` WHERE id IN (SELECT todoId FROM Monitoring WHERE uid =?) ORDER BY  `deadline` ASC";
 
 		try {
 			// 执行搜索

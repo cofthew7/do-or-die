@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="#ffffff"
+    android:padding="8dp"
+    android:tag="@+id/unknown_user_id" >
+
+    <TextView
+        android:id="@+id/unknown_user_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:paddingLeft="5dp"
+        android:text="Todo"
+        android:textColor="#0199CC"
+        android:textSize="20dp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:background="#33CCFF"
+        android:padding="2dp"
+        android:paddingTop="4dp" >
+
+        <Button
+            android:id="@+id/add_unknown_user"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#ffffff"
+            android:padding="10dp"
+            android:text="Add"
+            android:textColor="#33CCFF"
+            android:textSize="18dp" />
+    </LinearLayout>
+
+</RelativeLayout>

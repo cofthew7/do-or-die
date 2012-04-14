@@ -63,7 +63,7 @@ public class GetMyFriendsTodos extends HttpServlet {
 				out.write(todos.toString());
 				out.flush();
 			} else {
-				out.write("null");
+				out.write("false");
 				out.flush();
 			}
 		} catch (Exception e) {

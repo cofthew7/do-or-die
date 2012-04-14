@@ -23,6 +23,10 @@
         <activity android:name="SignupActivity"></activity>
         <activity android:name="AddTodoActivity"></activity>
         <activity android:name="AddMonitorActivity"></activity>
+        <activity android:name="MainActivity"></activity>
+        <activity android:name="MyTodosActivity"></activity>
+        <activity android:name="MonitoringTodosActivity"></activity>
+        <activity android:name="UnknownUsersActivity"></activity>
     </application>
 
 </manifest>

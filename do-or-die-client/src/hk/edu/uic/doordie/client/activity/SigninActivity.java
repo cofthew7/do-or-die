@@ -11,6 +11,7 @@ import hk.edu.uic.doordie.client.model.vo.Todo;
 import hk.edu.uic.doordie.client.model.vo.User;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -26,6 +27,8 @@ public class SigninActivity extends Activity implements OnClickListener,
 	private EditText password;
 	private Button signin;
 	private DataTransporter dataTransporter;
+	private SharedPreferences account;
+	private SharedPreferences.Editor editor;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -36,7 +39,10 @@ public class SigninActivity extends Activity implements OnClickListener,
 		password = (EditText) findViewById(R.id.signin_password);
 		signin = (Button) findViewById(R.id.signin_signin);
 		dataTransporter = new DataTransporter();
-
+		account = getSharedPreferences("account.xml",0);
+		editor = account.edit();
+		
+		
 		email.setOnFocusChangeListener(this);
 		password.setOnFocusChangeListener(this);
 		signin.setOnClickListener(this);
@@ -104,15 +110,20 @@ public class SigninActivity extends Activity implements OnClickListener,
 					user = entry.getKey();
 					todoList = entry.getValue();
 				}
+				
+				editor.putInt("id", user.getId());
+				editor.putString("email", user.getEmail());
+				editor.putString("password", user.getPassword());
+				editor.commit();
 				notice(user.getId()+"");
 				Intent intent = new Intent();
 				// Bundle myBundle = new Bundle();
-				intent.putExtra("user", user);
-				intent.putExtra("todoList", (Serializable) todoList);
+				//intent.putExtra("user", user);
+				//intent.putExtra("todoList", (Serializable) todoList);
 				// myBundle.putSerializable("user", user);
 				// myBundle.putSerializable("todoList", (Serializable) todoList);
 				// intent.putExtra("myInfoAndTodos", myBundle);
-				intent.setClass(SigninActivity.this, AddTodoActivity.class);
+				intent.setClass(SigninActivity.this, MainActivity.class);
 				startActivity(intent);
 			} else {
 				notice("Signup failed!");

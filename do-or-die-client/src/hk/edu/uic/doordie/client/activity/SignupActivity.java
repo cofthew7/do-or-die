@@ -4,6 +4,7 @@ import hk.edu.uic.doordie.client.controller.DataTransporter;
 import hk.edu.uic.doordie.client.model.vo.User;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -19,7 +20,9 @@ public class SignupActivity extends Activity implements OnClickListener,
 	private EditText password;
 	private Button signup;
 	private DataTransporter dataTransporter;
-
+	private SharedPreferences account;
+	private SharedPreferences.Editor editor;
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -29,7 +32,9 @@ public class SignupActivity extends Activity implements OnClickListener,
 		password = (EditText) findViewById(R.id.signup_password);
 		signup = (Button) findViewById(R.id.signup_signup);
 		dataTransporter = new DataTransporter();
-
+		account = getSharedPreferences("account.xml",0);
+		editor = account.edit();
+		
 		email.setOnFocusChangeListener(this);
 		password.setOnFocusChangeListener(this);
 		signup.setOnClickListener(this);
@@ -84,11 +89,16 @@ public class SignupActivity extends Activity implements OnClickListener,
 		protected void onPostExecute(User result) {
 			if (result != null) {
 				notice(result.getId() + " " + result.getEmail());
+				editor.putInt("id", result.getId());
+				editor.putString("email", result.getEmail());
+				editor.putString("password", result.getPassword());
+				editor.commit();
+				
 				Intent intent = new Intent();
-				Bundle myBundle = new Bundle();
-				myBundle.putSerializable("user", result);
-				intent.putExtra("user", myBundle);
-				intent.setClass(SignupActivity.this, LoginActivity.class);
+				//Bundle myBundle = new Bundle();
+				//myBundle.putSerializable("user", result);
+				//intent.putExtra("user", myBundle);
+				intent.setClass(SignupActivity.this, MainActivity.class);
 				startActivity(intent);
 			} else {
 				notice("Signup failed!");

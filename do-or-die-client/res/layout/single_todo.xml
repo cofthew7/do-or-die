@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="#ffffff"
+    android:padding="8dp"
+    android:tag="@+id/todo_id" >
+
+    <TextView
+        android:id="@+id/my_todo_name"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="5dp"
+        android:text="Todo"
+        android:textColor="#0199CC"
+        android:textSize="15dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/my_todo_deadline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/my_todo_name"
+        android:paddingLeft="5dp"
+        android:paddingTop="4dp"
+        android:text="Deadline: 2012-03-03"
+        android:textColor="#E92C65"
+        android:textSize="10dp" />
+
+    <TextView
+        android:id="@+id/my_todo_createdDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/my_todo_name"
+        android:paddingTop="4dp"
+        android:text="Created: 2012-01-01"
+        android:textColor="#00BB00"
+        android:textSize="10dp" />
+
+</RelativeLayout>

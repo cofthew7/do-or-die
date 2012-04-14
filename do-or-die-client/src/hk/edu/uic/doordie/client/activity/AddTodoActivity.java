@@ -13,6 +13,7 @@ import hk.edu.uic.doordie.client.model.vo.Todo;
 import hk.edu.uic.doordie.client.model.vo.User;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -41,6 +42,9 @@ public class AddTodoActivity extends Activity implements OnClickListener,
 	private List<User> friendList;
 	private User my;
 
+	private SharedPreferences account;
+	private SharedPreferences.Editor editor;
+	
 	private DataTransporter dataTransporter;
 
 	public void onCreate(Bundle savedInstanceState) {
@@ -58,9 +62,14 @@ public class AddTodoActivity extends Activity implements OnClickListener,
 		datePicker.init(c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH), this);
 		addTodo.setOnClickListener(this);
 
-		Intent myLocalIntent = getIntent();
+		account = getSharedPreferences("account.xml",0);
+		my = new User();
+		my.setId(account.getInt("id", 0));
+		my.setEmail(account.getString("email", null));
+		my.setPassword(account.getString("password", null));
+		//Intent myLocalIntent = getIntent();
 		// Bundle myBundle = myLocalIntent.getExtras();
-		my = (User) myLocalIntent.getSerializableExtra("user");
+		//my = (User) myLocalIntent.getSerializableExtra("user");
 		// get friend list
 		friendList = new LinkedList<User>();
 		new GetFriendListThread().execute();
@@ -87,10 +96,10 @@ public class AddTodoActivity extends Activity implements OnClickListener,
 					dataTransporter.addMonitor(todo.getId(), Integer.parseInt((monitors[i])));
 				}
 			}
+			
+			Intent intent = new Intent(AddTodoActivity.this, MainActivity.class);
+			startActivity(intent);
 		}
-		// upload todo
-		// update ui
-
 	}
 
 	@Override
