@@ -11,46 +11,49 @@ import java.sql.Timestamp;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.mysql.jdbc.Statement;
+
 public class TodoDAO {
 
-	public boolean addTodo(String name, Timestamp deadline, int isMonitored,
+	public int addTodo(String name, Timestamp deadline, int isMonitored,
 			int isFinished, int uid) throws Exception {
 		// 连接数据库
 		DatabaseConnection dbc = new DatabaseConnection();
 		Connection conn = dbc.getConnection();
 		PreparedStatement pStatement = null;
+		ResultSet rs = null;
 		// 判断结果
-		boolean isSuccess = false;
+		int key = -1;
 		// 插入语句
 		String query = "INSERT INTO `do-or-die`.`Todo` (`id`, `name`, `deadline`, `isMonitored`, `isFinished`, `createDate`, `uid`) "
 				+ "VALUES (NULL, ?, ?, ?, ?, CURRENT_TIMESTAMP, ?);";
 		try {
 			// 执行搜索
-			pStatement = conn.prepareStatement(query);
+			pStatement = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 			pStatement.setString(1, name);
 			pStatement.setTimestamp(2, deadline);
 			pStatement.setInt(3, isMonitored);
 			pStatement.setInt(4, isFinished);
 			pStatement.setInt(5, uid);
 
-			int row = pStatement.executeUpdate();
-
+			/*int row = */pStatement.executeUpdate();
+			rs = pStatement.getGeneratedKeys();
 			// 判断是否为空
-			if (row > 0) {
-				System.out.println("Successful!");
-				isSuccess = true;
+			if (rs.next()) {
+				System.out.println(rs.getInt(1));
+				key = rs.getInt(1);
 			} else {
 				System.out.println("No record satisfied!");
-				isSuccess = false;
+				key = -1;
 			}
 			// 关闭连接，返回结果
 			// rs.close();
 			dbc.close();
-			return isSuccess;
+			return key;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return false;
+		return key;
 	}
 
 	public boolean markFinish(int todoId) throws Exception {

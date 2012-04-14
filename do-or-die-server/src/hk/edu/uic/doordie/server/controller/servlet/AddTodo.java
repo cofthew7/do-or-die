@@ -50,9 +50,9 @@ public class AddTodo extends HttpServlet {
 		
 		TodoDAO td = new TodoDAO();
 		try {
-			boolean isSuccess = td.addTodo(name, deadline, isMonitored, isFinished, uid);
-			if(isSuccess) {
-				out.write("true");
+			int key = td.addTodo(name, deadline, isMonitored, isFinished, uid);
+			if(key > 0) {
+				out.write(String.valueOf(key));
 				out.flush();
 			} else {
 				out.println("false");

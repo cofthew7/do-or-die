@@ -104,11 +104,14 @@ public class SigninActivity extends Activity implements OnClickListener,
 					user = entry.getKey();
 					todoList = entry.getValue();
 				}
+				notice(user.getId()+"");
 				Intent intent = new Intent();
-				Bundle myBundle = new Bundle();
-				myBundle.putSerializable("user", user);
-				myBundle.putSerializable("todoList", (Serializable) todoList);
-				intent.putExtra("myInfoAndTodos", myBundle);
+				// Bundle myBundle = new Bundle();
+				intent.putExtra("user", user);
+				intent.putExtra("todoList", (Serializable) todoList);
+				// myBundle.putSerializable("user", user);
+				// myBundle.putSerializable("todoList", (Serializable) todoList);
+				// intent.putExtra("myInfoAndTodos", myBundle);
 				intent.setClass(SigninActivity.this, AddTodoActivity.class);
 				startActivity(intent);
 			} else {

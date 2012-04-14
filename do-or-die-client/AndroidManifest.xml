@@ -22,6 +22,7 @@
         <activity android:name="SigninActivity"></activity>
         <activity android:name="SignupActivity"></activity>
         <activity android:name="AddTodoActivity"></activity>
+        <activity android:name="AddMonitorActivity"></activity>
     </application>
 
 </manifest>
