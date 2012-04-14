@@ -1,7 +1,10 @@
 package hk.edu.uic.doordie.client.activity;
 
+import java.io.Serializable;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import hk.edu.uic.doordie.client.controller.DataTransporter;
 import hk.edu.uic.doordie.client.model.vo.Todo;
@@ -89,10 +92,24 @@ public class SigninActivity extends Activity implements OnClickListener,
 		@Override
 		protected void onPostExecute(Map<User, List<Todo>> result) {
 			if (result != null) {
-				notice(result.toString());
+				//notice(result.toString());
+				
+				
+				User user = null;
+				List<Todo> todoList = null;
+				
+				Iterator<Entry<User, List<Todo>>> it = result.entrySet().iterator();
+				while(it.hasNext()) {
+					Map.Entry<User, List<Todo>> entry = it.next();
+					user = entry.getKey();
+					todoList = entry.getValue();
+				}
 				Intent intent = new Intent();
-
-				intent.setClass(SigninActivity.this, LoginActivity.class);
+				Bundle myBundle = new Bundle();
+				myBundle.putSerializable("user", user);
+				myBundle.putSerializable("todoList", (Serializable) todoList);
+				intent.putExtra("myInfoAndTodos", myBundle);
+				intent.setClass(SigninActivity.this, AddTodoActivity.class);
 				startActivity(intent);
 			} else {
 				notice("Signup failed!");

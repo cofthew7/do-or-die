@@ -1,8 +1,14 @@
 package hk.edu.uic.doordie.client.model.vo;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
-public class Comment {
+public class Comment implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private int id;
 
 	private int todoid;

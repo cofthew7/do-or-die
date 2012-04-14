@@ -85,7 +85,9 @@ public class SignupActivity extends Activity implements OnClickListener,
 			if (result != null) {
 				notice(result.getId() + " " + result.getEmail());
 				Intent intent = new Intent();
-
+				Bundle myBundle = new Bundle();
+				myBundle.putSerializable("user", result);
+				intent.putExtra("user", myBundle);
 				intent.setClass(SignupActivity.this, LoginActivity.class);
 				startActivity(intent);
 			} else {

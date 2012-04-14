@@ -30,6 +30,29 @@ public class JSONParser {
 		return user;
 	}
 	
+	public List<User> toFriendList(String myFrineds) {
+		List<User> userList = new LinkedList<User>();
+		
+		try {
+			JSONArray ary = new JSONArray(myFrineds);
+			
+			for (int i = 0; i <ary.length(); i++) {
+				JSONObject obj = ary.getJSONObject(i);
+				User user = new User();
+				user.setId(obj.getInt("id"));
+				user.setEmail(obj.getString("email"));
+				user.setPassword(obj.getString("password"));
+				
+				userList.add(user);
+			}
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return userList;
+	}
+	
 	public Map<User, List<Todo>> toUserAndTodos(String myInfoAndString) {
 		User user = new User();
 		List<Todo> todoList = new LinkedList<Todo>();

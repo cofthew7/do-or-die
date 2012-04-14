@@ -1,8 +1,13 @@
 package hk.edu.uic.doordie.client.model.vo;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
-public class Todo {
+public class Todo implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int id;
 	private String name;
 	private Timestamp deadline;
