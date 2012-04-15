@@ -38,7 +38,7 @@ public class AddTodoActivity extends Activity implements OnClickListener,
 	private Button addTodo;
 
 	private StringBuffer dateBuf;
-	private String[] monitors;
+	private String[] monitors = {};
 	private List<User> friendList;
 	private User my;
 
@@ -122,7 +122,7 @@ public class AddTodoActivity extends Activity implements OnClickListener,
 		@Override
 		protected void onPreExecute() {
 			myId = my.getId();
-			notice(myId + "");
+			//notice(myId + "");
 		}
 
 		@Override
@@ -149,7 +149,7 @@ public class AddTodoActivity extends Activity implements OnClickListener,
 				}
 
 			} else {
-				notice("get friend list failed!");
+				//notice("get friend list failed!");
 			}
 		}
 	}

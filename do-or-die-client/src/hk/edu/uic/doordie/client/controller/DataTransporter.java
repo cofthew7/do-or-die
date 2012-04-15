@@ -23,6 +23,7 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 
+import hk.edu.uic.doordie.client.model.vo.Comment;
 import hk.edu.uic.doordie.client.model.vo.Todo;
 import hk.edu.uic.doordie.client.model.vo.User;
 
@@ -679,5 +680,148 @@ public class DataTransporter {
 		}
 
 		return friendList;
+	}
+
+	public boolean addRelation(int myId, int uid) {
+		String url = "http://10.0.2.2:8080/do-or-die-server/AddRelation";
+
+		// 通过HttpClient方式连接
+		HttpPost httpRequest = new HttpPost(url);
+		HttpClient httpClient = new DefaultHttpClient();
+
+		// 设置请求参数
+		List<NameValuePair> params = new ArrayList<NameValuePair>();
+
+		// 将设置参数添加入请求列表
+		params.add(new BasicNameValuePair("myId", String.valueOf(myId)));
+		params.add(new BasicNameValuePair("friendId", String.valueOf(uid)));
+
+
+		// 返回值
+		boolean isSuccess = false;
+		
+		try {
+
+			// 对请求参数编码
+			HttpEntity httpEntity = new UrlEncodedFormEntity(params, HTTP.UTF_8);
+
+			// 发送请求
+			httpRequest.setEntity(httpEntity);
+			HttpResponse httpResponse = httpClient.execute(httpRequest);
+
+			// JSON流接收器
+			StringBuilder sb = new StringBuilder();
+
+			if (httpResponse.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
+
+				// 接收返回对象
+				HttpEntity responseEntity = httpResponse.getEntity();
+				BufferedReader reader = new BufferedReader(
+						new InputStreamReader(responseEntity.getContent()));
+
+				String line = null;
+				if ((line = reader.readLine()) != null) {
+					if (!line.equals("false")) {
+						System.out.println(line);
+						sb.append(line + "\n");
+						isSuccess = true;
+					} else {
+						isSuccess = false;
+					}
+				}
+				reader.close();
+
+			}
+
+			// 调用JSON解析器对JSON流进行解析
+			/*if (sb.toString() != "") {
+				JSONParser jp = new JSONParser();
+				user = jp.toUser(sb.toString());
+				return user;
+			} else {
+				return null;
+			}*/
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+			System.out.print("客户端请求编码出错" + "\n");
+		} catch (ClientProtocolException e) {
+			e.printStackTrace();
+			System.out.print("客户端传输请求发生错误" + "\n");
+		} catch (IOException e) {
+			e.printStackTrace();
+			System.out.print("输入输出流出错" + "\n");
+		}
+
+		return isSuccess;
+	}
+	
+	public Map<List<User>, List<Comment>> getNotificationList(int todoId) {
+		String url = "http://10.0.2.2:8080/do-or-die-server/GetComments";
+
+		// 通过HttpClient方式连接
+		HttpPost httpRequest = new HttpPost(url);
+		HttpClient httpClient = new DefaultHttpClient();
+
+		// 设置请求参数
+		List<NameValuePair> params = new ArrayList<NameValuePair>();
+
+		// 将设置参数添加入请求列表
+		params.add(new BasicNameValuePair("todoId", String.valueOf(todoId)));
+
+		// 返回值
+		Map<List<User>, List<Comment>> notificationList = new HashMap<List<User>, List<Comment>>();
+		
+		try {
+
+			// 对请求参数编码
+			HttpEntity httpEntity = new UrlEncodedFormEntity(params, HTTP.UTF_8);
+
+			// 发送请求
+			httpRequest.setEntity(httpEntity);
+			HttpResponse httpResponse = httpClient.execute(httpRequest);
+
+			// JSON流接收器
+			StringBuilder sb = new StringBuilder();
+
+			if (httpResponse.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
+
+				// 接收返回对象
+				HttpEntity responseEntity = httpResponse.getEntity();
+				BufferedReader reader = new BufferedReader(
+						new InputStreamReader(responseEntity.getContent()));
+
+				String line = null;
+				if ((line = reader.readLine()) != null) {
+					if (!line.equals("false")) {
+						System.out.println(line);
+						sb.append(line + "\n");
+					} else {
+						notificationList = null;
+					}
+				}
+				reader.close();
+
+			}
+
+			// 调用JSON解析器对JSON流进行解析
+			if (sb.toString() != "") {
+				JSONParser jp = new JSONParser();
+				notificationList = jp.toNotifications(sb.toString());
+				return notificationList;
+			} else {
+				return null;
+			}
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+			System.out.print("客户端请求编码出错" + "\n");
+		} catch (ClientProtocolException e) {
+			e.printStackTrace();
+			System.out.print("客户端传输请求发生错误" + "\n");
+		} catch (IOException e) {
+			e.printStackTrace();
+			System.out.print("输入输出流出错" + "\n");
+		}
+
+		return notificationList;
 	}
 }

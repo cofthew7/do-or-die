@@ -10,6 +10,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import hk.edu.uic.doordie.client.model.vo.Comment;
 import hk.edu.uic.doordie.client.model.vo.Todo;
 import hk.edu.uic.doordie.client.model.vo.User;
 
@@ -89,6 +90,42 @@ public class JSONParser {
 		
 	}
 
+	public Map<List<User>, List<Comment>> toNotifications (String notifications) {
+		List<User> userList = new LinkedList<User>();
+		List<Comment> commentList = new LinkedList<Comment>();
+		
+		try {
+			JSONArray ary = new JSONArray(notifications);
+			
+			for(int i = 0; i < ary.length(); i++) {
+				JSONObject obj = ary.getJSONObject(i);
+				JSONObject obj2 = obj.getJSONObject("user");
+				
+				Comment comment = new Comment();
+				comment.setId(obj.getInt("id"));
+				comment.setUid(obj.getInt("uid"));
+				comment.setContent((obj.getString("content")));
+				comment.setCreatedDate((Timestamp.valueOf(obj.getString("createdDate"))));
+				
+				User user = new User();
+				user.setId(obj2.getInt("id"));
+				user.setEmail(obj2.getString("email"));
+				
+				userList.add(user);
+				commentList.add(comment);
+			}
+			
+			Map<List<User>, List<Comment>> notificationMap = new HashMap<List<User>, List<Comment>>();
+			notificationMap.put(userList, commentList);
+			return notificationMap;
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+		
+	}
+	
 	public Map<User, List<Todo>> toUserAndTodos(String myInfoAndString) {
 		User user = new User();
 		List<Todo> todoList = new LinkedList<Todo>();

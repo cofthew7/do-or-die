@@ -10,14 +10,18 @@ import java.util.HashMap;
 import java.util.List;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
@@ -34,6 +38,7 @@ public class UnknownUsersActivity extends Activity implements OnClickListener {
 	OnItemClickListener ocListener;
 	private List<User> userList;
 	private boolean isReload;
+	private Context mContext;
 
 	private Button refreshButton;
 
@@ -43,6 +48,7 @@ public class UnknownUsersActivity extends Activity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.unknow_users);
 
+		mContext = UnknownUsersActivity.this;
 		// get ui component
 		refreshButton = (Button) findViewById(R.id.unknow_user_refresh);
 		refreshButton.setOnClickListener(this);
@@ -67,24 +73,14 @@ public class UnknownUsersActivity extends Activity implements OnClickListener {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
-				/*// show comments
+				
 				map = (HashMap<String, Object>) lv.getItemAtPosition(arg2);
-				Todo todo = new Todo();
-				todo.setId((Integer) map.get("id"));
-				todo.setName((String) map.get("name"));
-				todo.setDeadline((Timestamp) map.get("deadline"));
-				todo.setCreatedDate((Timestamp) map.get("createdDate"));
-				todo.setUid((Integer) map.get("uid"));
-				todo.setIsFinished((Integer) map.get("isFinished"));
-				todo.setIsMonitored((Integer) map.get("isMonitored"));
+				AddToMonitorListDialog((Integer)map.get("id"), arg2);	
+				
 
-				// change to comment activity
-				Intent myLocalIntent = new Intent(UnknownUsersActivity.this,
-						CommentActivity.class);
-				myLocalIntent.putExtra("todo", todo);
-				startActivity(myLocalIntent);*/
+				
+				isReload = true;
 			}
-
 		};
 		lv.setOnItemClickListener(ocListener);
 
@@ -111,7 +107,7 @@ public class UnknownUsersActivity extends Activity implements OnClickListener {
 		@Override
 		protected void onPreExecute() {
 			myId = my.getId();
-			notice(myId + "");
+			//notice(myId + "");
 		}
 
 		@Override
@@ -152,7 +148,7 @@ public class UnknownUsersActivity extends Activity implements OnClickListener {
 
 				lv.setAdapter(userListAdapter);
 			} else {
-				notice("get todo list failed!");
+				//notice("get todo list failed!");
 			}
 		}
 	}
@@ -165,12 +161,6 @@ public class UnknownUsersActivity extends Activity implements OnClickListener {
 	public void onClick(View arg0) {
 		// TODO Auto-generated method stub
 		switch (arg0.getId()) {
-		case R.id.new_todo:
-			isReload = true;
-			Intent intent = new Intent(UnknownUsersActivity.this,
-					AddTodoActivity.class);
-			startActivity(intent);
-			break;
 		case R.id.refresh:
 			lv = (ListView) findViewById(R.id.mytodos_listview);
 			userArrayList = new ArrayList<HashMap<String, Object>>();
@@ -180,5 +170,41 @@ public class UnknownUsersActivity extends Activity implements OnClickListener {
 			new GetUnknownUsersThread().execute();
 		}
 
+	}
+	
+	public void AddToMonitorListDialog(final int uid, final int indexOfitem) {
+		final AlertDialog.Builder builder =new AlertDialog.Builder(mContext);
+		LayoutInflater flater = LayoutInflater.from(mContext);
+		final View view = flater.inflate(R.layout.add_friend_box, null);
+		Button send = (Button) view.findViewById(R.id.add_friend);
+		Button cancle = (Button) view.findViewById(R.id.cancle_add_friend);
+		builder.setView(view);
+		final AlertDialog dialog = builder.create();
+		dialog.show();
+		
+		send.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				dataTransporter.addRelation(my.getId(), uid);
+				
+				userArrayList.remove(indexOfitem);
+				userListAdapter.notifyDataSetChanged();
+				lv.invalidate();
+				
+				dialog.dismiss();
+			}
+		});
+		
+		cancle.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				dialog.dismiss();
+			}
+		});
+		
+        
 	}
 }

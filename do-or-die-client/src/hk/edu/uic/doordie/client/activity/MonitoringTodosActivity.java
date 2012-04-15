@@ -112,7 +112,7 @@ public class MonitoringTodosActivity extends Activity implements
 		@Override
 		protected void onPreExecute() {
 			myId = my.getId();
-			notice(myId + "");
+			//notice(myId + "");
 		}
 
 		@Override
@@ -177,7 +177,7 @@ public class MonitoringTodosActivity extends Activity implements
 
 				lv.setAdapter(todoListAdapter);
 			} else {
-				notice("get todo list failed!");
+				//notice("get todo list failed!");
 			}
 		}
 	}

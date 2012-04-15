@@ -53,7 +53,7 @@
                     android:background="#ffffff"
                     android:paddingBottom="5dp"
                     android:paddingTop="5dp"
-                    android:text="Name"
+                    android:hint="Name"
                     android:textColor="#DFDFDF"
                     android:textSize="20dp" />
             </LinearLayout>

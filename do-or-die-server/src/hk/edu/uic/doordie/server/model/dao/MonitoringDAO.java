@@ -26,10 +26,10 @@ public class MonitoringDAO {
 				// 判断是否为空
 				if (row > 0) {
 					// 若不为空，返回刚插入的对象
-					System.out.println("follow Successful!");
+					System.out.println("add monitor Successful!");
 					isSuccess = true;
 				} else {
-					System.out.println("follow faild!");
+					System.out.println("add monitor faild!");
 					isSuccess = false;
 				}
 				// 关闭连接，返回结果

@@ -27,6 +27,7 @@
         <activity android:name="MyTodosActivity"></activity>
         <activity android:name="MonitoringTodosActivity"></activity>
         <activity android:name="UnknownUsersActivity"></activity>
+        <activity android:name="NotificationActivity"></activity>
     </application>
 
 </manifest>

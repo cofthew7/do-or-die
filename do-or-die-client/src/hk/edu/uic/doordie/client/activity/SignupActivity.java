@@ -1,5 +1,8 @@
 package hk.edu.uic.doordie.client.activity;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import hk.edu.uic.doordie.client.controller.DataTransporter;
 import hk.edu.uic.doordie.client.model.vo.User;
 import android.app.Activity;
@@ -14,8 +17,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class SignupActivity extends Activity implements OnClickListener,
-		OnFocusChangeListener {
+public class SignupActivity extends Activity implements OnClickListener {
 	private EditText email;
 	private EditText password;
 	private Button signup;
@@ -35,8 +37,8 @@ public class SignupActivity extends Activity implements OnClickListener,
 		account = getSharedPreferences("account.xml",0);
 		editor = account.edit();
 		
-		email.setOnFocusChangeListener(this);
-		password.setOnFocusChangeListener(this);
+		//email.setOnFocusChangeListener(this);
+		//password.setOnFocusChangeListener(this);
 		signup.setOnClickListener(this);
 	}
 
@@ -44,12 +46,27 @@ public class SignupActivity extends Activity implements OnClickListener,
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.signup_signup:
-			new SignupThread().execute();
+			if (!email.getText().toString().equals("") && !password.getText().toString().equals("")) {
+				if (eMailValidation(email.getText().toString())) {
+					new SignupThread().execute();
+				} else {
+					notice("Incorrect email format!");
+				}
+			} else {
+				notice("Incorrect input!");
+			}
 			break;
 		}
 	}
 
-	@Override
+	public boolean eMailValidation(String emailstring) {
+		  Pattern emailPattern = Pattern.compile("[a-zA-Z0-9\\+\\.\\_\\%\\-\\+]{1,256}"
+		    + "\\@" + "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,64}" + "(" + "\\."
+		    + "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,25}" + ")+");
+		  Matcher emailMatcher = emailPattern.matcher(emailstring);
+		  return emailMatcher.matches();
+	}
+	/*@Override
 	public void onFocusChange(View v, boolean hasFocus) {
 		// TODO Auto-generated method stub
 		if (v.getId() == R.id.signup_email && hasFocus && email.getText().toString().equals("Email")) {
@@ -61,7 +78,7 @@ public class SignupActivity extends Activity implements OnClickListener,
 		} else if (v.getId() == R.id.signup_password && !hasFocus && password.getText().toString().equals("")) {
 				password.setText("Password");
 		}
-	}
+	}*/
 	
 	private class SignupThread extends AsyncTask<String, Void, User> {
 		String emailString;

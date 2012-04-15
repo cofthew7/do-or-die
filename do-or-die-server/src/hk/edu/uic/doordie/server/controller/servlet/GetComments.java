@@ -64,7 +64,7 @@ public class GetComments extends HttpServlet {
 				out.write(comments.toString());
 				out.flush();
 			} else {
-				out.write("null");
+				out.write("false");
 				out.flush();
 			}
 		} catch (Exception e) {

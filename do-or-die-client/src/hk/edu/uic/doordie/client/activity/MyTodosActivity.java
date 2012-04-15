@@ -80,7 +80,7 @@ public class MyTodosActivity extends Activity implements OnClickListener{
 				todo.setIsMonitored((Integer)map.get("isMonitored"));
 				
 				// change to comment activity
-				Intent myLocalIntent = new Intent(MyTodosActivity.this, CommentActivity.class);
+				Intent myLocalIntent = new Intent(MyTodosActivity.this, NotificationActivity.class);
 				myLocalIntent.putExtra("todo", todo);
 				startActivity(myLocalIntent);
 			}
@@ -112,7 +112,7 @@ public class MyTodosActivity extends Activity implements OnClickListener{
 		@Override
 		protected void onPreExecute() {
 			myId = my.getId();
-			notice(myId + "");
+			//notice(myId + "");
 		}
 
 		@Override
@@ -154,7 +154,7 @@ public class MyTodosActivity extends Activity implements OnClickListener{
 				
 				lv.setAdapter(todoListAdapter);
 			} else {
-				notice("get todo list failed!");
+				//notice("get todo list failed!");
 			}
 		}
 	}
@@ -180,6 +180,5 @@ public class MyTodosActivity extends Activity implements OnClickListener{
 			
 			new GetMyTodosThread().execute();
 		}
-		
 	}
 }
