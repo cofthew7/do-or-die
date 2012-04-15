@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <drawable name = "gray">#999999</drawable>
+    <drawable name = "white">#FFFFFF</drawable>
+    <drawable name = "black">#000000</drawable>
+    <drawable name = "deepgray">#696969</drawable>
+    <drawable name = "blue">#0199CC</drawable>
+    <drawable name = "item_blue">#92D3EB</drawable>
+    <drawable name = "green">#00FFFF</drawable>
+</resources>

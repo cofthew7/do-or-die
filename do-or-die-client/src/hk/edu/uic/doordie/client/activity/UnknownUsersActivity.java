@@ -66,6 +66,7 @@ public class UnknownUsersActivity extends Activity implements OnClickListener {
 		// new thread to get my todo list
 		isReload = false;
 		lv = (ListView) findViewById(R.id.unknown_user_listview);
+		//lv.setSelector(R.drawable.item_background);
 		userArrayList = new ArrayList<HashMap<String, Object>>();
 		ocListener = new OnItemClickListener() {
 			HashMap<String, Object> map;
@@ -162,6 +163,7 @@ public class UnknownUsersActivity extends Activity implements OnClickListener {
 		// TODO Auto-generated method stub
 		switch (arg0.getId()) {
 		case R.id.refresh:
+			isReload = true;
 			lv = (ListView) findViewById(R.id.mytodos_listview);
 			userArrayList = new ArrayList<HashMap<String, Object>>();
 			userListAdapter = null;

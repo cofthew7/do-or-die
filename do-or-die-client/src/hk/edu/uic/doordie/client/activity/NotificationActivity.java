@@ -81,6 +81,7 @@ public class NotificationActivity extends Activity implements OnClickListener {
 		// new thread to get my todo list
 		isReload = false;
 		lv = (ListView) findViewById(R.id.notification_listview);
+		//lv.setSelector(R.drawable.item_background);
 		notifyArrayList = new ArrayList<HashMap<String, Object>>();
 		ocListener = new OnItemClickListener() {
 			HashMap<String, Object> map;

@@ -74,6 +74,7 @@ public class MonitoringTodosActivity extends Activity implements
 		isReload = false;
 		mContext = MonitoringTodosActivity.this;
 		lv = (ListView) findViewById(R.id.monitoring_listview);
+		//lv.setSelector(R.drawable.item_background);
 		todoArrayList = new ArrayList<HashMap<String, Object>>();
 		ocListener = new OnItemClickListener() {
 			HashMap<String, Object> map;
@@ -192,6 +193,7 @@ public class MonitoringTodosActivity extends Activity implements
 		// TODO Auto-generated method stub
 		switch (arg0.getId()) {
 		case R.id.monitoring_refresh:
+			isReload = true;
 			lv = (ListView) findViewById(R.id.monitoring_listview);
 			todoArrayList = new ArrayList<HashMap<String, Object>>();
 			todoListAdapter = null;

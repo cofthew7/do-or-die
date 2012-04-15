@@ -62,6 +62,7 @@ public class MyTodosActivity extends Activity implements OnClickListener{
 		// new thread to get my todo list
 		isReload = false;
 		lv = (ListView) findViewById(R.id.mytodos_listview);
+		//lv.setSelector(R.drawable.item_background);
 		todoArrayList = new ArrayList<HashMap<String, Object>>();
 		ocListener = new OnItemClickListener() {
 			HashMap<String, Object> map;
